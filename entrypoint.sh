@@ -143,6 +143,12 @@ parse_environment_variables() {
 
 
 upload_to_s3() {
+
+    if [[ "${DEBUG}" == "true" ]]; then
+      info "In debug mode."
+      pwd
+      ls -l
+    fi
     info "Uploading ${ZIP_FILE} to S3."
     run aws s3 cp "${ZIP_FILE}" "s3://${S3_BUCKET}/${KEY}"
     if [[ "${status}" != "0" ]]; then
